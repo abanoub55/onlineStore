@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="windows-1256">
+<title>add brand</title>
+</head>
+<body>
+<center>
+	<form  method="post" th:action="@{/addBrand}" th:object="${brand}">
+	<p>Brand Name :  <input type="text" value="" th:field="*{brandName}"/> </p>
+	<br></br>
+	<p>brand Category : <input type="text" value="" th:field="*{brandCategory}"/>
+	<br></br>
+	<input type="submit" value="add brand"/>
+	</form>
+	</center>
+</body>
+</html>

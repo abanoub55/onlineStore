@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="windows-1256">
+<title>add store</title>
+</head>
+<body>
+<center>
+	<form  method="post" th:action="@{/addStore}" th:object="${store}">
+	<p>Store Name :  <input type="text" value="" th:field="*{name}"/> </p>
+	<br></br>
+	<p>Store Type : <input type="text" value="" th:field="*{type}"/>
+	<br></br>
+	<p>Store Location : <input type="text" value="" th:field="*{location}"/>
+	<br></br>
+	<input type="submit" value="add Store"/>
+	</form>
+	</center>
+</body>
+</html>

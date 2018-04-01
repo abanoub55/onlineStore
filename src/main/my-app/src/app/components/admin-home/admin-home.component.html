@@ -1,0 +1,23 @@
+
+      <h1>stores requests</h1>
+     <br><br>
+     <div> 
+  <table class="table table-striped">
+    <thead>
+      <th> Store ID </th>
+      <th> name</th>
+       <th>operations</th> 
+    </thead>
+    <tbody>
+      <tr *ngFor="let store of stores">
+        <td> {{store.storeID}}</td>
+        <td>{{store.name}}</td>
+        <button class="btn btn-primary" (click)="accept(store)">accept</button> 
+        <button class="btn btn-danger" (click)="reject(store)">reject</button> 
+      </tr>
+</tbody>
+
+</table>
+<br><br>
+<button class="btn btn-primary" (click)="addBrand()">add Brand</button> <br><br>
+<button class="btn btn-primary" (click)="addProduct()">add Product</button> <br><br>

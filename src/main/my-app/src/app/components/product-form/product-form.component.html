@@ -1,0 +1,47 @@
+<!-- productID:number;
+	 name:string;
+	 price:number;
+	 category:string;
+	 brandName:string;
+	 numOfVisits:number;
+	 productsSold:number;
+	 numOfBuyers:number;
+	 owningStore:number; -->
+
+
+
+<div class="container">
+    <form (ngSubmit)="processForm()">
+    
+        <div class="form group">
+          Product ID
+        <input type="text" name='ProductID' class='form-control' [(ngModel)]='product.productID'>
+        </div>
+    
+        <div class="form group">
+        <label for="name">Product Name</label>
+        <input type="text" name='name' class='form-control' [(ngModel)]='product.name'>
+        </div>
+
+        <div class="form group">
+            <label for="name">Product price</label>
+            <input type="text" name='price' class='form-control' [(ngModel)]='product.price'>
+            </div>
+            <div class="form group">
+                <label for="category">Product category</label>
+                <input type="text" name='category' class='form-control' [(ngModel)]='product.category'>
+                </div>
+                <div class="form group">
+                    <label for="brandName">Product brand name</label>
+                    <input type="text" name='brandName' class='form-control' [(ngModel)]='product.brandName'>
+                    </div>
+                    <div class="form group">
+                        <label for="">store ID</label>
+                        <input type="text" name='owningStore' class='form-control' [(ngModel)]='product.owningStore'>
+                        </div>
+        
+          
+        <input type="submit" value="add Product" class="btn btn-success">
+      </form>
+   
+    </div>

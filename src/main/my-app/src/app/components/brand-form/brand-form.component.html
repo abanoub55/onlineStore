@@ -1,0 +1,15 @@
+<div class="container">
+    <form (ngSubmit)="processForm()">
+        <div class="form group">
+        <label for="brandName">Brand Name</label>
+        <input type="text" name='brandName' class='form-control' [(ngModel)]='brand.brandName'>
+        </div>
+        
+        <div class="form group">
+        <label for="category">Store location</label>
+        <input type="text" name='category' class='form-control' [(ngModel)]='brand.category'>
+        </div>
+        <input type="submit" value="add Brand" class="btn btn-success">
+      </form>
+   
+    </div>

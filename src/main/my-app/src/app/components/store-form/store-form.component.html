@@ -1,0 +1,26 @@
+<div class="container">
+    <form (ngSubmit)="processForm()">
+    
+        <div class="form group">
+          Store ID
+        <input type="text" name='storeID' class='form-control' [(ngModel)]='store.storeID'>
+        </div>
+    
+        <div class="form group">
+        <label for="name">Store Name</label>
+        <input type="text" name='name' class='form-control' [(ngModel)]='store.name'>
+        </div>
+        
+        <div class="form group">
+        <label for="location">Store location</label>
+        <input type="text" name='location' class='form-control' [(ngModel)]='store.location'>
+        </div>
+        <div class="form group">
+          <label for="type">Store type</label>
+          <input type="text" name='type' class='form-control' [(ngModel)]='store.type'>
+          </div>
+          
+        <input type="submit" value="add Store" class="btn btn-success">
+      </form>
+   
+    </div>

@@ -1,0 +1,51 @@
+  
+    <input type="text" name="showStatistics" [(ngModel)]='store.storeID'>
+  <button class="btn btn-primary" (click)="showStats()">Show Stats</button>  <br><br>
+   <br><br>
+   <div *ngIf="buttonClicked"> 
+      <h2>store Statistic </h2>
+<table class="table table-striped">
+  <thead>
+    <th> Store ID </th>
+    <th> name</th>
+    <th> # of visits</th>
+    <th># of sold products</th>
+    <th># of buyers</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td> {{store.storeID}}</td>
+      <td>{{store.name}}</td>
+      <td>{{store.numOfVisits}} </td>
+      <td>{{store.productsSold}} </td>
+      <td>{{store.numOfBuyers}}</td>
+
+    </tr>
+  </tbody>
+
+</table>
+</div>
+<br><br>
+  <div *ngIf="buttonClicked2"> 
+      <h2>store products </h2>
+  <table class="table table-striped">
+    <thead>
+      <th> Product ID </th>
+      <th> name</th>
+      <th> # of visits</th>
+      <th># of sold products</th>
+      <th># of buyers</th>
+    </thead>
+    <tbody>
+      <tr *ngFor='let product of products'>
+        <td> {{product.productID}}</td>
+        <td>{{product.name}}</td>
+        <td>{{product.numOfVisits}} </td>
+        <td>{{product.productsSold}} </td>
+        <td>{{product.numOfBuyers}}</td>
+  
+      </tr>
+    </tbody>
+  
+  </table>
+  </div>
