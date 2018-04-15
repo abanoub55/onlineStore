@@ -41,9 +41,10 @@ public class UserController {
 		Iterable<User> list=userrepo.findAll();
 		for(User us:list)
 		{
-			if(us.getName()==user.getName() && us.getPassword()==user.getPassword())
+			if(us.getName().equals(user.getName()) && us.getPassword().equals(user.getPassword()))
 			{
-				return user;
+				System.out.println(us.getPermissionID());
+				return us;
 			}
 		}
 		return null;

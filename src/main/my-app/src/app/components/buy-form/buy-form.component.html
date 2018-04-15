@@ -1,0 +1,16 @@
+
+   <div class="container">
+    <form (ngSubmit)="processForm()">
+        <div class="form group">
+        <label for="amount">amount required</label>
+        <input type="text" name='amount' class='form-control' [(ngModel)]='amount'>
+        </div>
+        
+        <div class="form group">
+        <label for="shippingAddress">shipping address</label>
+        <input type="text" name='shippingAddress' class='form-control' [(ngModel)]='product.shippingAddress'>
+        </div>
+        <input type="submit" value="confirm purchase" class="btn btn-success">
+      </form>
+   
+    </div>

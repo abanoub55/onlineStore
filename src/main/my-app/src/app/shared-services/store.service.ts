@@ -35,6 +35,11 @@ export class StoreService {
     return this.http.post(this.baseUrl+"/store",JSON.stringify(store),this.options).map((response:Response)=>response.json());
 
    }
+   update(store:Store)
+   {
+    return this.http.put(this.baseUrl+"/storeUpdate",JSON.stringify(store),this.options).map((response:Response)=>response.json());
+
+   }
    visit(store:Store)
    {
     return this.http.put(this.baseUrl+"/store",JSON.stringify(store),this.options).map((response:Response)=>response.json());

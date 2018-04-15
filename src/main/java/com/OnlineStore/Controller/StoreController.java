@@ -17,12 +17,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.OnlineStore.Entities.Product;
 import com.OnlineStore.Entities.Store;
 import com.OnlineStore.Entities.User;
 import com.OnlineStore.Repositories.StoreRepository;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200",allowedHeaders="*")
 @RequestMapping("/api")
 public class StoreController {
 	  @Autowired
@@ -33,6 +34,7 @@ public class StoreController {
 	  {
 		  
 		  return repo.findAll();
+		  
 	  }
 	  @GetMapping("/astores")
 	  public ArrayList<Store> getApprovedStores()

@@ -20,6 +20,24 @@ public class Product {
 	int productsSold;
 	int numOfBuyers;
 	int owningStore;
+	int amount;
+	String shippingAddress;
+	public int getAmount() {
+		return amount;
+	}
+	
+	public String getShippingAddress() {
+		return shippingAddress;
+	}
+
+	public void setShippingAddress(String shippingAddress) {
+		this.shippingAddress = shippingAddress;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
 	public Product()
 	{
 		
@@ -89,7 +107,7 @@ public class Product {
 	}
 
 	public Product(int id, int productID, String name, double price, String category, String brandName, int numOfVisits,
-			int productsSold, int numOfBuyers, int owningStore) {
+			int productsSold, int numOfBuyers, int owningStore, int amount, String shippingAddress) {
 		super();
 		this.id = id;
 		this.productID = productID;
@@ -101,7 +119,12 @@ public class Product {
 		this.productsSold = productsSold;
 		this.numOfBuyers = numOfBuyers;
 		this.owningStore = owningStore;
+		this.amount = amount;
+		this.shippingAddress = shippingAddress;
 	}
+
+	
+	
 	
 	
 	

@@ -49,6 +49,7 @@ export class UserHomeComponent implements OnInit {
   }
   productVisit(product)
   {
+    
     this.productservice.visit(product).subscribe((product)=>{
       this.product=product;
 
@@ -63,6 +64,11 @@ export class UserHomeComponent implements OnInit {
     let store=new Store();
     this.storeservice.setter(store);
     this.router.navigate(['/addStore']);
+  }
+  Buy(product)
+  {
+      this.productservice.setter(product);
+      this.router.navigate(['/purchase']);
   }
  
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {BrandService} from '../../shared-services/brand.service';
 import {Brand} from '../../Brand';
-import {Router} from '@angular/router';
+import {Router,Routes} from '@angular/router'
 @Component({
   selector: 'app-brand-form',
   templateUrl: './brand-form.component.html',

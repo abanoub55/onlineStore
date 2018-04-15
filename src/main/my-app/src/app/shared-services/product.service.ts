@@ -34,6 +34,10 @@ export class ProductService {
     return this.http.put(this.baseUrl+"/product",JSON.stringify(product),this.options).map((response:Response)=>response.json());
 
    }
+   updateProduct(product:Product)
+   {
+    return this.http.put(this.baseUrl+"/updateProduct",JSON.stringify(product),this.options).map((response:Response)=>response.json());
+   }
    setter(product:Product)
    {
      this.product=product;

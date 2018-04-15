@@ -21,7 +21,7 @@ import com.OnlineStore.Entities.Store;
 import com.OnlineStore.Repositories.ProductRepository;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200",allowedHeaders="*")
 @RequestMapping("/api")
 public class ProductController {
 	
@@ -73,16 +73,25 @@ public class ProductController {
 			return repo.save(product);
 		}
 		@PutMapping("/product")
-		public Product updateProduct(@RequestBody Product product)
+		public Product visitProduct(@RequestBody Product product)
 		{
 			product.setNumOfVisits(product.getNumOfVisits()+1);
+			System.out.println("function works!");
 			return repo.save(product);
 		}
-	  
-	  
-	  
-	  
-	  
+		
+		@PutMapping("/updateProduct")
+		public Product updateProduct(@RequestBody Product product)
+		{
+			System.out.println(product.getNumOfBuyers());
+			System.out.println(product.getProductsSold());
+			System.out.println(product.getAmount());
+			System.out.println(product.getShippingAddress());
+			return repo.save(product);
+		}
+
+		
+		
 	  
 	  
 	  @GetMapping("/AddProduct")
@@ -108,5 +117,3 @@ public class ProductController {
 	    }
 	    
 }
-
-

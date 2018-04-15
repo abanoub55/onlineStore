@@ -20,60 +20,49 @@ import com.OnlineStore.Entities.Store;
 import com.OnlineStore.Repositories.BrandRepository;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 @RequestMapping("/api")
 public class BrandController {
-	  @Autowired
-	  private BrandRepository repo;
-	  
-	  @GetMapping("/brands")
-	  public List<Brand> getbrands()
-	  {
-		  
-		  return repo.findAll();
-	  }
-	  
-		@GetMapping("/brand/{name}")
-	  public Brand getbrand(@PathVariable String name)
-		{
-			Iterable<Brand> list=repo.findAll();
-			Brand wantedBrand= new Brand();
-			for(Brand us:list)
-			{
-				if(us.getBrandName()==name)
-				{
-					wantedBrand=us;break;
-				}
+	@Autowired
+	private BrandRepository repo;
+
+	@GetMapping("/brands")
+	public List<Brand> getbrands() {
+
+		return repo.findAll();
+	}
+
+	@GetMapping("/brand/{name}")
+	public Brand getbrand(@PathVariable String name) {
+		Iterable<Brand> list = repo.findAll();
+		Brand wantedBrand = new Brand();
+		for (Brand us : list) {
+			if (us.getBrandName() == name) {
+				wantedBrand = us;
+				break;
 			}
-			return wantedBrand;
-			
 		}
-		
-		@PostMapping("/brand")
-		public Brand createBrand(@RequestBody Brand brand)
-		{
-			return repo.save(brand);
-		}
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  @GetMapping("/addBrand")
-	    public String showAddBrand(Model model) 
-	    {
-	    	model.addAttribute("brand",new Brand());
-	    	return "addBrand";
-	    }
-	    @PostMapping("/addBrand")
-	    public String addBrand(Model model,@ModelAttribute Brand brand)
-	    {
-	    	
-	    	repo.save(brand);
-	    	model.addAttribute("brand",new Brand());
-	    	return "addBrand";
-	    }
-	    
+		return wantedBrand;
+
+	}
+
+	@PostMapping("/brand")
+	public Brand createBrand(@RequestBody Brand brand) {
+		return repo.save(brand);
+	}
+
+	@GetMapping("/addBrand")
+	public String showAddBrand(Model model) {
+		model.addAttribute("brand", new Brand());
+		return "addBrand";
+	}
+
+	@PostMapping("/addBrand")
+	public String addBrand(Model model, @ModelAttribute Brand brand) {
+
+		repo.save(brand);
+		model.addAttribute("brand", new Brand());
+		return "addBrand";
+	}
+
 }

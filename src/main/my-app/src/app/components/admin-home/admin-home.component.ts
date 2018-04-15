@@ -31,6 +31,7 @@ export class AdminHomeComponent implements OnInit {
       },(error)=>{
         console.log(store);
       })
+      this.stores.splice(this.stores.indexOf(store),1);
       this.router.navigate(['/adminHome']);
     }
   reject(store:Store)
@@ -41,6 +42,8 @@ export class AdminHomeComponent implements OnInit {
     },(error)=>{
       console.log(error);
     })
+    this.stores.splice(this.stores.indexOf(store),1);
+
     this.router.navigate(['/adminHome']);
   }
   addBrand()
@@ -52,6 +55,7 @@ export class AdminHomeComponent implements OnInit {
   addProduct()
   {
     let product= new Product();
+    product.owningStore=0;
     this.productservice.setter(product);
     this.router.navigate(['/addProduct']);
   }

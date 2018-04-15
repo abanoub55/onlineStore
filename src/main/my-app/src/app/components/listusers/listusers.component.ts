@@ -50,25 +50,7 @@ export class ListusersComponent implements OnInit {
     this.userservice.setter(user);
     this.router.navigate(['Login']);
   }
-  addStore()
-  {
-    console.log("function");
-    let store=new Store();
-    this.storeservice.setter(store);
-    this.router.navigate(['/addStore']);
-  }
-  addBrand()
-  {
-    let brand=new Brand();
-    this.brandservice.setter(brand);
-    this.router.navigate(['/addBrand']);
-  }
-  addProduct()
-  {
-    let product= new Product();
-    this.productService.setter(product);
-    this.router.navigate(['/addProduct']);
-  }
+  
   
   deleteUser(user)
   {

@@ -13,33 +13,43 @@ export class LoginComponent implements OnInit {
   constructor(private userservice:UserService,private router:Router) { }
 
   ngOnInit() {
-    this.user=this.userservice.getter();
+    //this.user=this.userservice.getter();
+    if(this.user==null)this.user= new User();
+
+    this.userservice.setter(this.user);
   }
   processForm() 
   {
-   this.userservice.userlogin(this.user).subscribe((user)=>{
+    this.userservice.userlogin(this.user).subscribe((user)=>{
      this.user=user;
-     console.log(user);
+     console.log(this.user);
+     if(this.user!=null)
+     {
+       console.log(this.user);
+       if(this.user.permissionID==777)
+       {
+         console.log("admin user");
+         this.router.navigate(['/adminHome']);
+   
+       }
+       if(this.user.permissionID==555)
+       {
+           console.log("storeOwner user");
+           this.router.navigate(['/storeOwnerHome']);
+   
+       }
+        if(this.user.permissionID==111)
+       {
+         console.log("normal user");
+         this.router.navigate(['/userHome']);
+   
+       }
+     }
    },(error)=>{
      console.log(error);
    }
   )
-  if(this.user!=null)
-  {
-    if(this.user.permissionID==777)
-    {
-      console.log("admin user");
-    }
-    else if(this.user.permissionID==555)
-    {
-        console.log("storeOwner user");
-    }
-    else if(this.user.permissionID==111)
-    {
-      console.log("normal user");
-    }
-    this.router.navigate(['/']);
-  }
+ 
 
   }
 

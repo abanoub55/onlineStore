@@ -11,7 +11,7 @@ export class UserService {
   private user:User;
   constructor(public http:Http)
    {
-
+      
    }
    
    getusers()

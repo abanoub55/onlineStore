@@ -9,4 +9,6 @@ export class Product{
 	 productsSold:number;
 	 numOfBuyers:number;
 	 owningStore:number;
+	 amount:number;
+	 shippingAddress:string;
 };

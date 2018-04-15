@@ -17,6 +17,7 @@ import { LoginComponent } from './components/login/login.component';
 import { StoreOwnerHomeComponent } from './components/store-owner-home/store-owner-home.component';
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { UserHomeComponent } from './components/user-home/user-home.component';
+import { BuyFormComponent } from './components/buy-form/buy-form.component';
 
 const appRoutes=[
 {path:'' ,component:ListusersComponent},
@@ -27,7 +28,8 @@ const appRoutes=[
 {path:'adminHome',component:AdminHomeComponent},
 {path:'storeOwnerHome',component:StoreOwnerHomeComponent},
 {path:'userHome',component:UserHomeComponent},
-{path:'Login',component:LoginComponent}
+{path:'Login',component:LoginComponent},
+{path:'purchase',component:BuyFormComponent}
 ]
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ const appRoutes=[
     LoginComponent,
     StoreOwnerHomeComponent,
     AdminHomeComponent,
-    UserHomeComponent
+    UserHomeComponent,
+    BuyFormComponent
   ],
   imports: [
     BrowserModule,
