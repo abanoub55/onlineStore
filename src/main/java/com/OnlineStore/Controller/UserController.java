@@ -47,7 +47,7 @@ public class UserController {
 				return us;
 			}
 		}
-		return null;
+		return new User();
 	}
 	
 	@GetMapping("/user/{userID}")

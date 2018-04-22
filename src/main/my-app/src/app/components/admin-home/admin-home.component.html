@@ -21,3 +21,14 @@
 <br><br>
 <button class="btn btn-primary" (click)="addBrand()">add Brand</button> <br><br>
 <button class="btn btn-primary" (click)="addProduct()">add Product</button> <br><br>
+<button class="btn btn-primary" (click)="addStatistic()">add Statistic</button> <br><br>
+<div *ngIf='addstat'>
+    <form (ngSubmit)="processForm()">
+    
+        <div class="form group">
+        <label for="entity"></label>
+        entity name : <input type="text" name='entity' class='form-control' [(ngModel)]='stat.entityName'>
+        </div>
+        <br><input type="submit" value="add" class="btn btn-success">
+      </form>
+</div>

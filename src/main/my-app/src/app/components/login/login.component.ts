@@ -7,19 +7,20 @@ import {Router,Routes} from '@angular/router'
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent implements OnInit {
   users:User[];
   user:User;
   constructor(private userservice:UserService,private router:Router) { }
 
   ngOnInit() {
-    //this.user=this.userservice.getter();
     if(this.user==null)this.user= new User();
 
     this.userservice.setter(this.user);
   }
   processForm() 
   {
+    
     this.userservice.userlogin(this.user).subscribe((user)=>{
      this.user=user;
      console.log(this.user);

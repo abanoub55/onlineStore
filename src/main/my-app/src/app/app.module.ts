@@ -18,6 +18,7 @@ import { StoreOwnerHomeComponent } from './components/store-owner-home/store-own
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { UserHomeComponent } from './components/user-home/user-home.component';
 import { BuyFormComponent } from './components/buy-form/buy-form.component';
+import { StatService } from './shared-services/stat.service';
 
 const appRoutes=[
 {path:'' ,component:ListusersComponent},
@@ -51,7 +52,7 @@ const appRoutes=[
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [UserService,StoreService,BrandService,ProductService],
+  providers: [UserService,StoreService,BrandService,ProductService,StatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

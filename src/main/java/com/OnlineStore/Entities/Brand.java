@@ -6,24 +6,44 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Brand {
+public class Brand{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	int id;
 	
 	String brandName;
 	String brandCategory;
+
 	public Brand()
 	{
 		
 	}
 	
+	
+
+	public int getId() {
+		return id;
+	}
+
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+
+	
+
+
 	public Brand(int id, String brandName, String brandCategory) {
 		super();
 		this.id = id;
 		this.brandName = brandName;
 		this.brandCategory = brandCategory;
 	}
+
+
 
 	public String getBrandName() {
 		return brandName;
@@ -37,5 +57,7 @@ public class Brand {
 	public void setBrandCategory(String brandCategory) {
 		this.brandCategory = brandCategory;
 	}
+
+
 	
 }

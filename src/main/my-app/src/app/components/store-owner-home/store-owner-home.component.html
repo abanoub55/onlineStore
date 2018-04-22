@@ -1,5 +1,5 @@
   
-    <input type="text" name="showStatistics" [(ngModel)]='store.storeID'>
+    <!-- <input type="text" name="showStatistics" [(ngModel)]='store.storeID'>
   <button class="btn btn-primary" (click)="showStats()">Show Stats</button>  <br><br>
    <br><br>
    <div *ngIf="buttonClicked"> 
@@ -49,4 +49,90 @@
   
   </table>
   </div>
-<br><br>
+<br><br> -->
+
+<button class="btn btn-primary" (click)="listStats()">list available Stats</button>  <br><br>
+<div *ngIf='islist'>
+<table class="table table-striped">
+  <thead>
+    <th> Entity Name </th>
+    <th> operation</th>
+  </thead>
+  <tbody>
+    <tr *ngFor='let stat of stats'>
+      <td> {{stat.entityName}}</td>
+      <button class="a btn btn-primary" (click)="show(stat)">Show Stats</button>  
+      <button  class="a btn btn-primary" (click)="avg(stat)">Show Avg</button>  
+      <button class="a btn btn-primary" (click)="max(stat)">Show Max</button>  
+      <button class="a btn btn-primary" (click)="min(stat)">Show Min</button>  
+    </tr>
+  </tbody>
+
+</table>
+</div>
+
+
+<div *ngIf='listproducts'>
+  <table class="table table-striped">
+    <thead>
+      <th> Product ID </th>
+      <th> name</th>
+      <th> # of visits</th>
+      <th># of sold products</th>
+      <th># of buyers</th>
+    </thead>
+    <tbody>
+      <tr *ngFor='let product of products'>
+        <td> {{product.productID}}</td>
+        <td>{{product.name}}</td>
+        <td>{{product.numOfVisits}} </td>
+        <td>{{product.productsSold}} </td>
+        <td>{{product.numOfBuyers}}</td>
+  
+      </tr>
+    </tbody>
+  
+  </table>
+  </div>
+  <div *ngIf='liststores'>
+    <table class="table table-striped">
+      <thead>
+        <th> store ID </th>
+        <th> name</th>
+        <th> # of visits</th>
+        <th># of sold products</th>
+        <th># of buyers</th>
+      </thead>
+      <tbody>
+        <tr *ngFor='let store of stores'>
+          <td> {{store.storeID}}</td>
+          <td>{{store.name}}</td>
+          <td>{{store.numOfBuyers}} </td>
+          <td>{{store.numOfVisits}} </td>
+          <td>{{store.productsSold}}</td>
+    
+        </tr>
+      </tbody>
+    
+    </table>
+    </div>
+
+    <div *ngIf='listbrands'>
+      <table class="table table-striped">
+        <thead>
+          <th> name</th>
+          <th> brand category</th>
+          
+        </thead>
+        <tbody>
+          <tr *ngFor='let brand of brands'>
+            <td> {{brand.brandName}}</td>
+            <td>{{brand.category}}</td>
+          </tr>
+        </tbody>
+      
+      </table>
+      </div>
+  
+  
+

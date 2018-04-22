@@ -22,6 +22,7 @@ public class Product {
 	int owningStore;
 	int amount;
 	String shippingAddress;
+	static boolean trackable=false;
 	public int getAmount() {
 		return amount;
 	}

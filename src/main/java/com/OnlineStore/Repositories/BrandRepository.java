@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.OnlineStore.Entities.Brand;
 public interface BrandRepository extends JpaRepository<Brand,Integer>{
-
+	//Brand findByName(String name);
 }
 

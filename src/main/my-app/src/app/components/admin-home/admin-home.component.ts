@@ -6,6 +6,8 @@ import { BrandService } from '../../shared-services/brand.service';
 import {Brand} from '../../Brand';
 import { Product } from '../../Product';
 import { ProductService } from '../../shared-services/product.service';
+import { StatService } from '../../shared-services/stat.service';
+import { Statistics } from '../../Statistics';
 @Component({
   selector: 'app-admin-home',
   templateUrl: './admin-home.component.html',
@@ -13,8 +15,11 @@ import { ProductService } from '../../shared-services/product.service';
 })
 export class AdminHomeComponent implements OnInit {
   stores:Store[];
+  addstat:boolean=false;
+  stat:Statistics;
   constructor(private storeservice:StoreService,private router:Router,
-  private brandservice:BrandService,private productservice:ProductService) { }
+  private brandservice:BrandService,private productservice:ProductService,
+private statservice:StatService) { }
 
   ngOnInit() {
     this.storeservice.getustores().subscribe((stores)=>{
@@ -23,6 +28,7 @@ export class AdminHomeComponent implements OnInit {
     },(error)=>{
       console.log(error);
     })
+    this.stat= new Statistics();
   }
   accept(store:Store)
   {
@@ -58,5 +64,27 @@ export class AdminHomeComponent implements OnInit {
     product.owningStore=0;
     this.productservice.setter(product);
     this.router.navigate(['/addProduct']);
+  }
+  addStatistic()
+  {
+    this.addstat=!this.addstat;
+  }
+  processForm()
+  {
+    if(this.stat.entityName=='product' || this.stat.entityName=='brand' || this.stat.entityName=='store'){
+    this.statservice.createStat(this.stat).subscribe((stat)=>{
+      this.stat=stat;
+      console.log(this.stat);
+      alert("statistic added!");
+  },(error)=>
+{
+  console.log(error);
+});
+    }
+    else
+    {
+      alert("entity not valid!");
+    }
+   
   }
 }

@@ -8,6 +8,10 @@ import { AnonymousSubscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/observable';
 import { timer } from 'rxjs/observable/timer';
 import 'rxjs/add/operator/first';
+import { Statistics } from '../../Statistics';
+import { StatService } from '../../shared-services/stat.service';
+import { Brand } from '../../Brand';
+import { BrandService } from '../../shared-services/brand.service';
 
 @Component({
   selector: 'app-store-owner-home',
@@ -19,11 +23,18 @@ export class StoreOwnerHomeComponent implements OnInit {
   store:Store;
   products:Product[];
   product:Product;
+  stats:Statistics[];
+  stat:Statistics;
+  brands:Brand[];
   buttonClicked:boolean=false;
   buttonClicked2:boolean=false;
- 
+  islist:boolean=false;
+  listproducts:boolean=false;
+  listbrands:boolean=false;
+  liststores:boolean=false;
   constructor(private storeservice:StoreService,private router:Router,
-  private productservice:ProductService) { }
+  private productservice:ProductService,private statservice:StatService
+,private brandservice:BrandService) { }
 
   ngOnInit() {
     this.storeservice.getstores().subscribe(stores=>{
@@ -37,6 +48,22 @@ export class StoreOwnerHomeComponent implements OnInit {
     this.store=store;
     let product= new Product();
     this.product=product;
+    this.statservice.getstats().subscribe(stats=>{
+        this.stats=stats;
+        console.log(this.stats);
+    })
+    this.brandservice.getbrands().subscribe(brands=>{
+      this.brands=brands;
+      console.log(this.brands);
+    },(error)=>{
+      console.log(error);
+    })
+    this.productservice.getproducts().subscribe(products=>{
+      this.products=products;
+      console.log(this.products);
+    },(error)=>{
+      console.log(error);
+    })
   }
   showStats()  {
     this.storeservice.getstore(this.store.storeID).subscribe((store)=>{
@@ -63,5 +90,43 @@ refreshDdata()
 // {
 //   this.productservice.
 // }
+listStats()
+{
+  this.islist=!this.islist;
+}
+show(stat:Statistics)
+{
+    if(stat.entityName=='product')
+    {
+      this.listproducts=true;
+    }
+    else if(stat.entityName=='brand')
+    {
+      this.listbrands=true;
+    }
+    else if(stat.entityName=='store')
+    {
+      this.liststores=true;
+    }
+}
 
+avg(stat:Statistics)
+{
+      if(stat.entityName=='product')
+      {
+          
+      }
+      else if(stat.entityName=='store')
+      {
+
+      }
+}
+max()
+{
+
+}
+min()
+{
+
+}
 }
