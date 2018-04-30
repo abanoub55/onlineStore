@@ -1,3 +1,4 @@
+
 export class Store {
     storeID: number;
     name: string;

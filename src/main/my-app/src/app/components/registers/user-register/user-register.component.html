@@ -1,0 +1,36 @@
+<h1>User Resgister</h1>
+<div class="container">
+  <form (ngSubmit)="processForm()">
+  
+      <div class="form group">
+        User ID
+      <input type="text" name='userID' class='form-control' [(ngModel)]='user.userID'>
+      </div>
+  
+      <div class="form group">
+      <label for="name">User Name</label>
+      <input type="text" name='name' class='form-control' [(ngModel)]='user.name'>
+      </div>
+      
+      <div class="form group">
+      <label for="email">User Email</label>
+      <input type="text" name='email' class='form-control' [(ngModel)]='user.email'>
+      </div>
+      <div class="form group">
+        <label for="password">User password</label>
+        <input type="password" name='password' class='form-control' [(ngModel)]='user.password'>
+        </div>
+        <!-- <div *ngIf="isAdmin">
+            Master Password Required
+           <input type="text" name='masterPassword' class='form-control' [(ngModel)]='user.masterPassword'>
+        </div>
+       
+        <div *ngIf="isStoreOwner">
+            Store ID
+           <input type="text" name='storeID' class='form-control' [(ngModel)]='user.storeID'>
+        </div>
+      <input type="submit" value="save" class="btn btn-success"> -->
+    </form> 
+    <button (click)="toggleAdmin()">to Resgister as an Admin</button> <br>
+    <button (click)="toggleStoreOwner()">to Resgister as a StoreOwner</button> <br>
+  </div>

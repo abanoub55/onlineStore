@@ -14,6 +14,10 @@ export class ProductService {
    {
      return this.http.get(this.baseUrl+"/products",this.options).map((response:Response)=>response.json());
    }
+   getavailproducts()
+   {
+     return this.http.get(this.baseUrl+"/availproducts",this.options).map((response:Response)=>response.json());
+   }
    getproduct(id:number)
    {
     return this.http.get(this.baseUrl+"/product/"+id,this.options).map((response:Response)=>response.json());
@@ -38,6 +42,15 @@ export class ProductService {
    {
     return this.http.put(this.baseUrl+"/updateProduct",JSON.stringify(product),this.options).map((response:Response)=>response.json());
    }
+   deleteProduct(prod:Product)
+   {
+    return this.http.delete(this.baseUrl+"/productDel/"+prod,this.options).map((response:Response)=>response.json());
+   }
+   addProduct(storeid:number)
+   {
+    return this.http.put(this.baseUrl+"/addProduct",JSON.stringify(storeid),this.options).map((response:Response)=>response.json());
+   }
+
    setter(product:Product)
    {
      this.product=product;

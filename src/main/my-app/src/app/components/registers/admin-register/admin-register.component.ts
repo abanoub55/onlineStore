@@ -1,25 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../../user';
-import { UserService } from '../../shared-services/user.service';
 import {Router,Routes} from '@angular/router'
+import { Admin } from '../../../Admin';
+import { AdminService } from '../../../shared-services/user-services/admin.service';
 
 @Component({
-  selector: 'app-user-form',
-  templateUrl: './user-form.component.html',
-  styleUrls: ['./user-form.component.css']
+  selector: 'app-admin-register',
+  templateUrl: './admin-register.component.html',
+  styleUrls: ['./admin-register.component.css']
 })
-export class UserFormComponent implements OnInit {
+export class AdminRegisterComponent implements OnInit {
 
-  private user:User;
+  private user:Admin;
   private isAdmin:boolean=false;
   private isStoreOwner:boolean=false;
-  constructor(private userservice:UserService,private router:Router) 
-  {
+  constructor(private userservice:AdminService,private router:Router) { }
 
-  }
-  
   ngOnInit() {
-    this.user=this.userservice.getter();
+    this.user= new Admin();
   }
   toggleAdmin()
   {
@@ -33,19 +30,8 @@ export class UserFormComponent implements OnInit {
   }
   processForm()
   {
-    if(this.user.masterPassword==null && this.user.storeID==null)
-    {
-      if(this.user.permissionID==null)this.user.permissionID=111;
-    }
-    else if(this.user.masterPassword!=null && this.user.storeID==null)
-    {
-       if(this.user.permissionID==null)this.user.permissionID=777;
-    }
-    else if(this.user.masterPassword==null && this.user.storeID!=null)
-    {
-      if(this.user.permissionID==null)this.user.permissionID=555;
-    }
-    if(this.user.userID==undefined)
+    
+    if(this.user.userID==0)
     {
       this.userservice.createUser(this.user).subscribe((user)=>
     {
@@ -70,4 +56,5 @@ export class UserFormComponent implements OnInit {
   
   
   }
+
 }

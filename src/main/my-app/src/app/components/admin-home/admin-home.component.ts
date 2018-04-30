@@ -13,6 +13,7 @@ import { Statistics } from '../../Statistics';
   templateUrl: './admin-home.component.html',
   styleUrls: ['./admin-home.component.css']
 })
+
 export class AdminHomeComponent implements OnInit {
   stores:Store[];
   addstat:boolean=false;
@@ -29,7 +30,9 @@ private statservice:StatService) { }
       console.log(error);
     })
     this.stat= new Statistics();
+    
   }
+  
   accept(store:Store)
   {
       this.storeservice.accept(store).subscribe((store)=>{

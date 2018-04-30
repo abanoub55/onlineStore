@@ -1,11 +1,13 @@
 package com.OnlineStore.Controller;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,12 +30,26 @@ public class ProductController {
 	  @Autowired
 	  private ProductRepository repo;
 
-	    
+	  
 	  @GetMapping("/products")
 	  public List<Product> getproducts()
 	  {
 		  
 		  return repo.findAll();
+	  }
+	  @GetMapping("/availproducts")
+	  public List<Product> getavailproducts()
+	  {
+		  
+		  List<Product> list=repo.findAll();
+		  List<Product> returned=new ArrayList();
+		  for (Product product : list) {
+			if(product.getOwningStore()==0)
+			{
+				returned.add(product);
+			}
+		}
+		  return returned;
 	  }
 	  
 		@GetMapping("/product/{id}")
@@ -71,6 +87,7 @@ public class ProductController {
 		public Product createProduct(@RequestBody Product product)
 		{
 			return repo.save(product);
+			 
 		}
 		@PutMapping("/product")
 		public Product visitProduct(@RequestBody Product product)
@@ -89,31 +106,59 @@ public class ProductController {
 			System.out.println(product.getShippingAddress());
 			return repo.save(product);
 		}
+		@PutMapping("/addProduct/{p}")
+		public Product addProductToStore(@PathVariable Product p)
+		{
+			Iterable<Product> list=repo.findAll();
+			Product prod= new Product();
+			for(Product us:list)
+			{
+				if(us.getProductID()==p.getProductID())
+				{
+					prod=us;break;
+				}
+			}
+			prod.setOwningStore(p.getOwningStore());
+			return repo.save(prod);
+		}
+		@DeleteMapping("/productDel/{productID}")
+		public boolean deleteUser(@PathVariable int productID)
+		{
+			Iterable<Product> list=repo.findAll();
+			Product deletedProduct= new Product();
+			for(Product us:list)
+			{
+				if(us.getProductID()==productID)
+				{
+					deletedProduct=us;break;
+				}
+			}
+			repo.delete(deletedProduct);
+			 return true;
+		}
 
-		
-		
 	  
 	  
-	  @GetMapping("/AddProduct")
-	    public String showAddProduct(Model model) 
-	    {
-	    	model.addAttribute("product",new Product());
-	    	return "AddProduct";
-	    }
-	    @PostMapping("/AddProduct")
-	    public String addProcuct(Model model,@ModelAttribute Product product)
-	    {
-	    	
-	    	repo.save(product);
-	    	model.addAttribute("product",new Product());
-	    	return "AddProduct";
-	    }
-	    
-	    
-	    @GetMapping("/HomePage")
-	    public String HomePage()
-	    {
-	    	return "HomePage";
-	    }
+//	  @GetMapping("/AddProduct")
+//	    public String showAddProduct(Model model) 
+//	    {
+//	    	model.addAttribute("product",new Product());
+//	    	return "AddProduct";
+//	    }
+//	    @PostMapping("/AddProduct")
+//	    public String addProcuct(Model model,@ModelAttribute Product product)
+//	    {
+//	    	
+//	    	repo.save(product);
+//	    	model.addAttribute("product",new Product());
+//	    	return "AddProduct";
+//	    }
+//	    
+//	    
+//	    @GetMapping("/HomePage")
+//	    public String HomePage()
+//	    {
+//	    	return "HomePage";
+//	    }
 	    
 }

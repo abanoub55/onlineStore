@@ -12,6 +12,11 @@ import { Statistics } from '../../Statistics';
 import { StatService } from '../../shared-services/stat.service';
 import { Brand } from '../../Brand';
 import { BrandService } from '../../shared-services/brand.service';
+import { Command } from '../../Command';
+import { CommandService } from '../../shared-services/command.service';
+import { SessionStorageService } from 'ngx-webstorage';
+import { Collabrator } from '../../Collabrator';
+import { StoreOwner } from '../../StoreOwner';
 
 @Component({
   selector: 'app-store-owner-home',
@@ -26,17 +31,32 @@ export class StoreOwnerHomeComponent implements OnInit {
   stats:Statistics[];
   stat:Statistics;
   brands:Brand[];
-  buttonClicked:boolean=false;
-  buttonClicked2:boolean=false;
+  availps:boolean=false;
   islist:boolean=false;
   listproducts:boolean=false;
   listbrands:boolean=false;
   liststores:boolean=false;
+  commands:Command[];
+  availprods:Product[];
   constructor(private storeservice:StoreService,private router:Router,
   private productservice:ProductService,private statservice:StatService
-,private brandservice:BrandService) { }
+,private brandservice:BrandService,private commandservice:CommandService,
+private sstorage:SessionStorageService) { }
 
   ngOnInit() {
+    this.productservice.getavailproducts().subscribe((availproducts)=>{
+        this.availprods=availproducts;
+        console.log(this.availprods);
+
+    },(error)=>{
+      console.log(error);
+    })
+    this.commandservice.getcommands().subscribe((commands)=>{
+      this.commands=commands;
+      console.log(commands);
+    },(error)=>{
+      console.log(error);
+    })
     this.storeservice.getstores().subscribe(stores=>{
       console.log(stores);
       this.stores=stores;
@@ -64,21 +84,23 @@ export class StoreOwnerHomeComponent implements OnInit {
     },(error)=>{
       console.log(error);
     })
+    this.showStats();
   }
   showStats()  {
-    this.storeservice.getstore(this.store.storeID).subscribe((store)=>{
+    let s = new StoreOwner();
+    s=this.sstorage.retrieve('storeowner');
+    this.storeservice.getstore(s.storeID).subscribe((store)=>{
      this.store=store;
    },(error)=>{
      console.log(error);
    })
-    this.productservice.getstoreproducts(this.store.storeID).subscribe((products)=>{
+    this.productservice.getstoreproducts(s.storeID).subscribe((products)=>{
      this.products=products;
      console.log(products);
    },(error)=>{
      console.log(error);
    })
-    this.buttonClicked=true;
-    this.buttonClicked2=true;
+
    console.log(this.store.storeID);
    this.refreshDdata();
 }
@@ -86,10 +108,31 @@ refreshDdata()
 {
    timer(60000).first().subscribe(() => this.showStats());
 }
-// addToStore()
-// {
-//   this.productservice.
-// }
+
+addProduct()
+{
+  this.availps=!this.availps;
+}
+add(product:Product)
+{
+  product.owningStore=this.sstorage.retrieve('storeowner').storeID;
+  this.availprods.splice(this.availprods.indexOf(product),1);
+  this.productservice.updateProduct(product).subscribe((productt)=>{
+    console.log(productt);
+  },(error)=>{
+    console.log(error);
+    alert('added successfully to your store!');
+    let cmd= new Command();
+    cmd.name='add';
+    cmd.prod=product;
+    cmd.store.storeID=this.sstorage.retrieve('storeowner').storeID;
+    this.commandservice.createCommand(cmd).subscribe((command)=>{
+      console.log(command);
+    },(error)=>{
+      console.log(error);
+    })
+  })
+}
 listStats()
 {
   this.islist=!this.islist;
@@ -108,6 +151,22 @@ show(stat:Statistics)
     {
       this.liststores=true;
     }
+}
+undo(command:Command)
+  {
+      if(command.name=='add')
+      {
+        this.productservice.deleteProduct(command.prod).subscribe((command)=>{
+          console.log(command);
+
+        },(error)=>{
+          console.log(error);
+        })
+      }
+  }
+addCollab()
+{
+  this.router.navigate(['collabform']);
 }
 
 avg(stat:Statistics)

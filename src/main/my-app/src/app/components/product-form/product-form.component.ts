@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../shared-services/product.service';
 import { Router } from '@angular/router';
 import { Product } from '../../Product';
+import { CommandService } from '../../shared-services/command.service';
+import { Command } from '../../Command';
+
 
 @Component({
   selector: 'app-product-form',
@@ -10,14 +13,13 @@ import { Product } from '../../Product';
 })
 export class ProductFormComponent implements OnInit {
   product:Product;
-  constructor(private productservice:ProductService,private router:Router) { }
+  constructor(private productservice:ProductService,private commandservice:CommandService,private router:Router) { }
 
   ngOnInit() {
     this.product=this.productservice.getter();
   }
   processForm()
   {
-
     this.productservice.createProduct(this.product).subscribe((product)=>
     {
       console.log(product);
@@ -26,6 +28,6 @@ export class ProductFormComponent implements OnInit {
   {
     console.log(error);
   })
-    
+
   }
 }

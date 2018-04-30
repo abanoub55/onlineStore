@@ -1,0 +1,27 @@
+<h1>add a Collabarator</h1>
+<div class="container">
+  <form (ngSubmit)="processForm()">
+  
+      <div class="form group">
+        User ID
+      <input type="text" name='userID' class='form-control' [(ngModel)]='user.userID'>
+      </div>
+  
+      <div class="form group">
+      <label for="name">User Name</label>
+      <input type="text" name='name' class='form-control' [(ngModel)]='user.name'>
+      </div>
+      
+      <div class="form group">
+      <label for="email">User Email</label>
+      <input type="text" name='email' class='form-control' [(ngModel)]='user.email'>
+      </div>
+      <div class="form group">
+        <label for="password">User password</label>
+        <input type="password" name='password' class='form-control' [(ngModel)]='user.password'>
+        </div>
+        
+      <input type="submit" value="save" class="btn btn-success">
+    </form>
+   
+  </div>

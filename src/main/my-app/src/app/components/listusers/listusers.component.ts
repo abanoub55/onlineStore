@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../shared-services/user.service';
 import {StoreService} from '../../shared-services/store.service';
 import {BrandService} from '../../shared-services/brand.service';
 import {Store} from '../../Store';
@@ -8,47 +7,43 @@ import {Brand} from '../../Brand';
 import {Router,Routes} from '@angular/router'
 import { ProductService } from '../../shared-services/product.service';
 import { Product } from '../../Product';
+import { NormaluserService } from '../../shared-services/user-services/normaluser.service';
+import { NormalUser } from '../../NormalUser';
 @Component({
   selector: 'app-listusers',
   templateUrl: './listusers.component.html',
   styleUrls: ['./listusers.component.css']
 })
 export class ListusersComponent implements OnInit {
-  private users:User[];
+  private users:NormalUser[];
   private stores:Store[];
   private brands:Brand[];
-  constructor(private userservice:UserService,private router:Router,private storeservice:StoreService
+  constructor(private userservice:NormaluserService,private router:Router,private storeservice:StoreService
   ,private brandservice:BrandService,private productService:ProductService)
    {
       
    }
 
   ngOnInit() {
-    // this.userservice.getusers().subscribe(users=>{
-    //   console.log(users);
-    //   this.users=users;
-    // }
-    // ,(error)=>{
-    //   console.log(error);
-    // })
+    
   }
   updateUser(user)
   {
     this.userservice.setter(user);
-    this.router.navigate(['/Register']);
+    this.router.navigate(['/userform']);
 
   }
   newUser()
   {
-     let user=new User();
+     let user=new NormalUser();
     this.userservice.setter(user);
-    this.router.navigate(['/Register']);
+    this.router.navigate(['/userform']);
   }
   login()
   {
-    let user = new User();
+    let user = new NormalUser();
     this.userservice.setter(user);
-    this.router.navigate(['Login']);
+    this.router.navigate(['/userlogin']);
   }
   
   

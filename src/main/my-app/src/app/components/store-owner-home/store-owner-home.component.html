@@ -1,8 +1,7 @@
-  
-    <!-- <input type="text" name="showStatistics" [(ngModel)]='store.storeID'>
-  <button class="btn btn-primary" (click)="showStats()">Show Stats</button>  <br><br>
-   <br><br>
-   <div *ngIf="buttonClicked"> 
+<!-- <input type="text" name="showStatistics" [(ngModel)]='store.storeID'>
+<button class="btn btn-primary" (click)="showStats()">Show Stats</button>  <br><br>
+<br> -->
+   <div> 
       <h2>store Statistic </h2>
 <table class="table table-striped">
   <thead>
@@ -26,7 +25,7 @@
 </table>
 </div>
 <br><br>
-  <div *ngIf="buttonClicked2"> 
+  <div> 
       <h2>store products </h2>
   <table class="table table-striped">
     <thead>
@@ -49,7 +48,7 @@
   
   </table>
   </div>
-<br><br> -->
+<br><br>
 
 <button class="btn btn-primary" (click)="listStats()">list available Stats</button>  <br><br>
 <div *ngIf='islist'>
@@ -70,7 +69,33 @@
 
 </table>
 </div>
+<button class ="btn btn-primary" (click)="addCollab()">Add a Collabarator</button><br><br>
+<button class ="btn btn-primary" (click)="addProduct()">add product</button><br><br>
 
+<div *ngIf='availps'>
+  <table class="table table-striped">
+    <thead>
+      <th> Product ID </th>
+      <th> name</th>
+      <th> # of visits</th>
+      <th># of sold products</th>
+      <th># of buyers</th>
+    </thead>
+    <tbody>
+      <tr *ngFor='let product of availprods'>
+        <td> {{product.productID}}</td>
+        <td>{{product.name}}</td>
+        <td>{{product.numOfVisits}} </td>
+        <td>{{product.productsSold}} </td>
+        <td>{{product.numOfBuyers}}</td>
+        <button class ="btn btn-primary" (click)="add(product)">add</button><br><br>
+
+      </tr>
+    </tbody>
+  
+  </table>
+
+</div>
 
 <div *ngIf='listproducts'>
   <table class="table table-striped">
@@ -133,6 +158,23 @@
       
       </table>
       </div>
-  
+      <h2>operations done by collabrators</h2>
+      <br><br>
+      <div> 
+        <table class="table table-striped">
+          <thead>
+            <th>product name</th>
+             <th>operation</th> 
+          </thead>
+          <tbody>
+            <tr *ngFor="let command of commands">
+              <td> {{command.prod.name}}</td>
+              <td>{{command.name}}</td>
+              <button class="btn btn-primary" (click)="undo(command)">undo</button> 
+            </tr>
+      </tbody>
+      
+      </table>
+      </div>  
   
 
