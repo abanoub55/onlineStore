@@ -43,7 +43,8 @@
         <td>{{product.numOfVisits}} </td>
         <td>{{product.productsSold}} </td>
         <td>{{product.numOfBuyers}}</td>
-  
+        <button class="a btn btn-danger" (click)="delete(product)">Delete</button>
+        <button class="a btn btn-default" (click)="edit(product)">Edit</button>
       </tr>
     </tbody>
   
@@ -108,7 +109,7 @@
       <th># of buyers</th>
     </thead>
     <tbody>
-      <tr *ngFor='let product of products'>
+      <tr *ngFor='let product of allproducts'>
         <td> {{product.productID}}</td>
         <td>{{product.name}}</td>
         <td>{{product.numOfVisits}} </td>

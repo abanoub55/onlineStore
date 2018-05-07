@@ -42,7 +42,8 @@
         <td>{{product.numOfVisits}} </td>
         <td>{{product.productsSold}} </td>
         <td>{{product.numOfBuyers}}</td>
-  
+        <button class="a btn btn-danger" (click)="delete(product)">Delete</button>
+        <button class="a btn btn-default" (click)="edit(product)">Edit</button>
       </tr>
     </tbody>
   
@@ -107,7 +108,7 @@
       <th># of buyers</th>
     </thead>
     <tbody>
-      <tr *ngFor='let product of products'>
+      <tr *ngFor='let product of allproducts'>
         <td> {{product.productID}}</td>
         <td>{{product.name}}</td>
         <td>{{product.numOfVisits}} </td>
@@ -158,19 +159,21 @@
       
       </table>
       </div>
-      <h2>operations done by collabrators</h2>
+      <h2>actions happened in your store</h2>
       <br><br>
       <div> 
         <table class="table table-striped">
           <thead>
+              <th>operation</th> 
             <th>product name</th>
-             <th>operation</th> 
+             <th>product ID </th>
           </thead>
           <tbody>
             <tr *ngFor="let command of commands">
-              <td> {{command.prod.name}}</td>
+                <td>{{command.operationName}}</td>
               <td>{{command.name}}</td>
-              <button class="btn btn-primary" (click)="undo(command)">undo</button> 
+              <td>{{command.productID}}</td>
+              <button class="btn btn-danger" (click)="undo(command)">undo</button> 
             </tr>
       </tbody>
       

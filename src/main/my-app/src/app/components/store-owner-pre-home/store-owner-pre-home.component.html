@@ -1,0 +1,48 @@
+
+    
+<button class="btn btn-primary" (click)="goHome()">visit your store</button>    
+    <br><br>
+    
+    <h2>available stores</h2>
+    <br><br>
+    <div > 
+ <table class="table table-striped">
+   <thead>
+     <th> Store ID </th>
+     <th> name</th>
+      <th>operations</th> 
+   </thead>
+   <tbody>
+     <tr *ngFor="let store of stores">
+       <td> {{store.storeID}}</td>
+       <td>{{store.name}}</td>
+     
+       <button class="btn btn-primary" (click)="visit(store)">Go to</button> 
+     </tr>
+   </tbody>
+ 
+ </table>
+ <div *ngIf="buttonClicked"> 
+     <h2>store products </h2>
+ <table class="table table-striped">
+   <thead>
+     <th> Product ID </th>
+     <th> name</th>
+     <th> operation</th>
+     
+   </thead>
+   <tbody>
+     <tr *ngFor='let product of products'>
+       <td> {{product.productID}}</td>
+       <td>{{product.name}}</td>
+      
+       <button class="btn btn-primary" (click)="productVisit(product)">view </button> 
+       <button class="btn btn-primary" (click)="Buy(product)">Buy</button> 
+
+     </tr>
+   </tbody>
+ 
+ </table>
+ </div>
+ <br><br>
+ <button class="btn btn-primary" (click)="addStore()">add Store</button> <br><br>

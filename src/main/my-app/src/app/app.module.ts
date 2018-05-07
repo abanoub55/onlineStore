@@ -32,6 +32,7 @@ import { NormalUser } from './NormalUser';
 import { CollabratorHomeComponent } from './components/collabrator-home/collabrator-home.component';
 import { CommandService } from './shared-services/command.service';
 import {Ng2Webstorage, LocalStorageService, SessionStorageService} from 'ngx-webstorage';
+import { StoreOwnerPreHomeComponent } from './components/store-owner-pre-home/store-owner-pre-home.component';
 
 
 const appRoutes=[
@@ -52,6 +53,7 @@ const appRoutes=[
 {path:'adminform',component:AdminRegisterComponent},
 {path:'collabform',component:CollabratorRegisterComponent},
 {path:'collabHome',component:CollabratorHomeComponent},
+{path:'storeOwnerUser',component:StoreOwnerPreHomeComponent}
 ]
 @NgModule({
   declarations: [
@@ -72,7 +74,8 @@ const appRoutes=[
     NormalUserLoginComponent,
     StoreOwnerLoginComponent,
     AdminLoginComponent,
-    CollabratorHomeComponent
+    CollabratorHomeComponent,
+    StoreOwnerPreHomeComponent
   ],
   imports: [
     BrowserModule,

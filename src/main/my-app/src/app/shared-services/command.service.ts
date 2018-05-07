@@ -15,9 +15,9 @@ export class CommandService {
     return this.http.post(this.baseUrl+"/command",JSON.stringify(command),this.options).map((response:Response)=>response.json());
 
    }
-   getcommands(id:number)
+   getcommands(storeID:number)
    {
-    return this.http.get(this.baseUrl+"/commands"+id,this.options).map((response:Response)=>response.json());
+    return this.http.get(this.baseUrl+"/commands/"+storeID,this.options).map((response:Response)=>response.json());
 
    }
    deleteCommand(id:number)

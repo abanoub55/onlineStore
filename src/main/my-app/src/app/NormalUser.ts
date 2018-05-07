@@ -4,6 +4,7 @@ export class NormalUser{
     email:string;
     userID:number;
     password:string;
+    firstPurchase:boolean;
     NormalUser()
     {
        

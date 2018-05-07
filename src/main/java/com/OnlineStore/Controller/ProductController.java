@@ -86,6 +86,7 @@ public class ProductController {
 		@PostMapping("/product")
 		public Product createProduct(@RequestBody Product product)
 		{
+			
 			return repo.save(product);
 			 
 		}
@@ -96,14 +97,16 @@ public class ProductController {
 			System.out.println("function works!");
 			return repo.save(product);
 		}
-		
+		@PutMapping("/deleteStoreProduct")
+		public Product deleteStoreProduct(@RequestBody Product product)
+		{
+			product.setOwningStore(0);
+			return repo.save(product);
+		}
 		@PutMapping("/updateProduct")
 		public Product updateProduct(@RequestBody Product product)
 		{
-			System.out.println(product.getNumOfBuyers());
-			System.out.println(product.getProductsSold());
-			System.out.println(product.getAmount());
-			System.out.println(product.getShippingAddress());
+			
 			return repo.save(product);
 		}
 		@PutMapping("/addProduct/{p}")
@@ -137,7 +140,7 @@ public class ProductController {
 			 return true;
 		}
 
-	  
+	
 	  
 //	  @GetMapping("/AddProduct")
 //	    public String showAddProduct(Model model) 

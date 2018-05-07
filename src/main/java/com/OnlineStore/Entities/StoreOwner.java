@@ -14,7 +14,8 @@ public class StoreOwner{
 		String name;
 		String password;
 		int userID;
-
+		boolean firstPurchase;
+		
 		public int getStoreID() {
 			return storeID;
 		}
@@ -26,6 +27,14 @@ public class StoreOwner{
 			this.name = name;
 			this.password = password;
 			this.userID = userID;
+		}
+
+		public boolean isFirstPurchase() {
+			return firstPurchase;
+		}
+
+		public void setFirstPurchase(boolean firstPurchase) {
+			this.firstPurchase = firstPurchase;
 		}
 
 		public int getId() {

@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.OnlineStore.Entities.Product;
 import com.OnlineStore.Entities.Store;
-import com.OnlineStore.Entities.User;
 import com.OnlineStore.Repositories.StoreRepository;
 
 @RestController

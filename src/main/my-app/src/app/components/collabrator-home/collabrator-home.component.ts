@@ -26,6 +26,7 @@ export class CollabratorHomeComponent implements OnInit {
   stores:Store[];
   store:Store;
   products:Product[];
+  allproducts:Product[];
   product:Product;
   stats:Statistics[];
   availps:boolean=false;
@@ -72,7 +73,7 @@ private sstorage:SessionStorageService,private commandservice:CommandService) { 
       console.log(error);
     })
     this.productservice.getproducts().subscribe(products=>{
-      this.products=products;
+      this.allproducts=products;
       console.log(this.products);
     },(error)=>{
       console.log(error);
@@ -105,23 +106,64 @@ addProduct()
 }
 add(product:Product)
 {
-  product.owningStore=this.sstorage.retrieve('storeowner').storeID;
+  product.owningStore=this.sstorage.retrieve('collabrator').storeID;
   this.availprods.splice(this.availprods.indexOf(product),1);
   this.productservice.updateProduct(product).subscribe((productt)=>{
     console.log(productt);
   },(error)=>{
     console.log(error);
     alert('added successfully to your store!');
-    let cmd= new Command();
-    cmd.name='add';
-    cmd.prod=product;
-    cmd.store.storeID=this.sstorage.retrieve('storeowner').storeID;
+    let cmd= new Command("add");
+    //cmd.name='add';
+   // cmd.prod=product;
+    //cmd.store.storeID=this.sstorage.retrieve('collabrator').storeID;
     this.commandservice.createCommand(cmd).subscribe((command)=>{
       console.log(command);
     },(error)=>{
       console.log(error);
     })
   })
+ 
+  this.productservice.getstoreproducts(this.sstorage.retrieve('storeowner').storeID).subscribe((products)=>{
+    this.products=products;
+    console.log(products);
+  },(error)=>{
+    console.log(error);
+  })
+}
+edit(product:Product)
+{
+  this.productservice.setter(product);
+  this.router.navigate(['addProduct']);
+}
+delete(product:Product)
+{
+  
+  this.productservice.deleteStoreProduct(product).subscribe((command)=>{
+    console.log(command);
+
+  },(error)=>{
+    console.log(error)}
+  )
+  this.products.splice(this.products.indexOf(product),1);
+
+  alert('deleted successfully from your store!');
+    let cmd= new Command("delete");
+   // cmd.name='delete';
+    //cmd.prod=product;
+    //cmd.store=this.store;
+    this.commandservice.createCommand(cmd).subscribe((command)=>{
+      console.log(command);
+    },(error)=>{
+      console.log(error);
+    })
+ 
+    this.productservice.getstoreproducts(this.sstorage.retrieve('collabrator').storeID).subscribe((products)=>{
+      this.products=products;
+      console.log(products);
+    },(error)=>{
+      console.log(error);
+    })
 }
 
 listStats()

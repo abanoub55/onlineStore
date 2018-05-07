@@ -38,13 +38,18 @@ export class ProductService {
     return this.http.put(this.baseUrl+"/product",JSON.stringify(product),this.options).map((response:Response)=>response.json());
 
    }
+   deleteStoreProduct(product:Product)
+   {
+    return this.http.put(this.baseUrl+"/deleteStoreProduct",JSON.stringify(product),this.options).map((response:Response)=>response.json());
+
+   }
    updateProduct(product:Product)
    {
     return this.http.put(this.baseUrl+"/updateProduct",JSON.stringify(product),this.options).map((response:Response)=>response.json());
    }
-   deleteProduct(prod:Product)
+   deleteProduct(id:number)
    {
-    return this.http.delete(this.baseUrl+"/productDel/"+prod,this.options).map((response:Response)=>response.json());
+    return this.http.delete(this.baseUrl+"/productDel/"+id,this.options).map((response:Response)=>response.json());
    }
    addProduct(storeid:number)
    {

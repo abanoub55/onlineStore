@@ -25,36 +25,36 @@ public class CommandController {
 	commandRepo repo;
 		
 	
-	@GetMapping("/commands/{id}")
-	  public List<Command> getcommands(@PathVariable int id)
+	  @GetMapping("/commands/{storeID}")
+	  public List<Command> getcommands(@PathVariable int storeID)
 	  {
 		  
 		  List<Command> list= repo.findAll();
-		  List<Command> returned = new ArrayList();
+		  List<Command> returned = new ArrayList<Command>();
 		  for(Command cmd:list)
 		  {
-			  if(cmd.getStore().getStoreID()==id)
-			  {
-				  returned.add(cmd);
-			  }
+			if(cmd.getOwningStore()==storeID)
+			{
+				returned.add(cmd);
+			}
 		  }
 		  return returned;
 	  }
 	@PostMapping("/command")
 	public Command createCommand(@RequestBody Command command)
 	{
+		command.setOprationName("add");
 		return repo.save(command);
 	}
 	
-	
-	@DeleteMapping("/commandDel/{prod}")
-	public boolean deleteUser(@PathVariable Product prod)
+	@DeleteMapping("/commandDel/{commandID}")
+	public boolean deleteUser(@PathVariable int commandID)
 	{
 		Iterable<Command> list=repo.findAll();
 		Command deletedCommand= new Command();
 		for(Command us:list)
 		{
-			if(us.getProd().getId()==prod.getId())
+			if(us.getId()==commandID)
 			{
 				deletedCommand=us;break;
 			}

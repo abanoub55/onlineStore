@@ -5,7 +5,7 @@ export class StoreOwner {
     email:string;
     userID:number;
     password:string;
-
+    firstPurchase:boolean;
     StoreOwner()
     {
         

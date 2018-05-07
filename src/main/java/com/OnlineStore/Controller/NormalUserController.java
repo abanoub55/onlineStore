@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.OnlineStore.Entities.NormalUser;
-import com.OnlineStore.Entities.User;
 import com.OnlineStore.Repositories.NormalUserRepo;
 
 @RestController

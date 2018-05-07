@@ -27,6 +27,7 @@ export class StoreOwnerHomeComponent implements OnInit {
   stores:Store[];
   store:Store;
   products:Product[];
+  allproducts:Product[];
   product:Product;
   stats:Statistics[];
   stat:Statistics;
@@ -51,7 +52,12 @@ private sstorage:SessionStorageService) { }
     },(error)=>{
       console.log(error);
     })
-    this.commandservice.getcommands().subscribe((commands)=>{
+    this.storeservice.getstore(this.sstorage.retrieve('storeowner').storeID).subscribe((store)=>{
+      this.store=store;
+    },(error)=>{
+      console.log(error);
+    })
+    this.commandservice.getcommands(this.sstorage.retrieve('storeowner').storeID).subscribe((commands)=>{
       this.commands=commands;
       console.log(commands);
     },(error)=>{
@@ -79,7 +85,7 @@ private sstorage:SessionStorageService) { }
       console.log(error);
     })
     this.productservice.getproducts().subscribe(products=>{
-      this.products=products;
+      this.allproducts=products;
       console.log(this.products);
     },(error)=>{
       console.log(error);
@@ -120,49 +126,135 @@ add(product:Product)
   this.productservice.updateProduct(product).subscribe((productt)=>{
     console.log(productt);
   },(error)=>{
-    console.log(error);
+    console.log(error);})
+
     alert('added successfully to your store!');
-    let cmd= new Command();
-    cmd.name='add';
-    cmd.prod=product;
-    cmd.store.storeID=this.sstorage.retrieve('storeowner').storeID;
+    let cmd= new Command("add");
+    //cmd.operationName="add";
+    cmd.name=product.name;
+    cmd.productID=product.productID;cmd.amount=product.amount;
+    cmd.brandName=product.brandName;cmd.owningStore=product.owningStore;
+    cmd.numOfBuyers=product.numOfBuyers;cmd.numOfVisits=product.numOfVisits;
+    cmd.price=product.price;cmd.productsSold=product.productsSold;
+    cmd.shippingAddress=product.shippingAddress;cmd.category=product.category;
     this.commandservice.createCommand(cmd).subscribe((command)=>{
       console.log(command);
     },(error)=>{
       console.log(error);
     })
-  })
+    this.commandservice.getcommands(this.sstorage.retrieve('storeowner').storeID).subscribe((commands)=>{
+      this.commands=commands;
+      console.log(commands);
+    },(error)=>{
+      console.log(error);
+    })
+    this.productservice.getstoreproducts(this.sstorage.retrieve('storeowner').storeID).subscribe((products)=>{
+      this.products=products;
+      console.log(products);
+    },(error)=>{
+      console.log(error);
+    })
 }
 listStats()
 {
   this.islist=!this.islist;
 }
+edit(product:Product)
+{
+  this.productservice.setter(product);
+  this.sstorage.store('editPressed',product);
+  this.router.navigate(['addProduct']);
+}
+delete(product:Product)
+{
+  
+  this.productservice.deleteStoreProduct(product).subscribe((command)=>{
+    console.log(command);
+
+  },(error)=>{
+    console.log(error)}
+  )
+  this.products.splice(this.products.indexOf(product),1);
+
+  alert('deleted successfully from your store!');
+    let cmd= new Command("delete");
+    cmd.name=product.name;
+    cmd.productID=product.productID;cmd.amount=product.amount;
+    cmd.brandName=product.brandName;cmd.owningStore=product.owningStore;
+    cmd.numOfBuyers=product.numOfBuyers;cmd.numOfVisits=product.numOfVisits;
+    cmd.price=product.price;cmd.productsSold=product.productsSold;
+    cmd.shippingAddress=product.shippingAddress;cmd.category=product.category;
+    this.commandservice.createCommand(cmd).subscribe((command)=>{
+      console.log(command);
+    },(error)=>{
+      console.log(error);
+    })
+    this.commandservice.getcommands(this.sstorage.retrieve('storeowner').storeID).subscribe((commands)=>{
+      this.commands=commands;
+      console.log("these are your commands !"+commands);
+    },(error)=>{
+      console.log(error);
+    })
+    this.productservice.getstoreproducts(this.sstorage.retrieve('storeowner').storeID).subscribe((products)=>{
+      this.products=products;
+      console.log(products);
+    },(error)=>{
+      console.log(error);
+    })
+}
 show(stat:Statistics)
 {
     if(stat.entityName=='product')
     {
-      this.listproducts=true;
+      this.listproducts=!this.listproducts;
     }
     else if(stat.entityName=='brand')
     {
-      this.listbrands=true;
+      this.listbrands=!this.listbrands;
     }
     else if(stat.entityName=='store')
     {
-      this.liststores=true;
+      this.liststores=!this.liststores;
     }
 }
 undo(command:Command)
   {
       if(command.name=='add')
       {
-        this.productservice.deleteProduct(command.prod).subscribe((command)=>{
-          console.log(command);
-
-        },(error)=>{
-          console.log(error);
-        })
+        //command.prod.owningStore=0;
       }
+      else if(command.name=='delete')
+      {
+      //  command.prod.owningStore=this.sstorage.retrieve('storeowner').storeID;
+        
+      }
+      else if(command.name=='edit')
+      {
+
+      }
+      // this.productservice.updateProduct(command.prod).subscribe((product)=>{
+      // },(error)=>{
+      //   console.log(error);
+      // })
+      this.commandservice.deleteCommand(command.id).subscribe((command)=>{
+
+      },(error)=>{
+        console.log(error);
+      })
+      this.commands.splice(this.commands.indexOf(command),1);
+      this.commandservice.getcommands(this.sstorage.retrieve('storeowner').storeID).subscribe((commands)=>{
+        this.commands=commands;
+        console.log(commands);
+      },(error)=>{
+        console.log(error);
+      })
+      this.productservice.getstoreproducts(this.sstorage.retrieve('storeowner').storeID).subscribe((products)=>{
+        this.products=products;
+        console.log(products);
+      },(error)=>{
+        console.log(error);
+      })
+
   }
 addCollab()
 {

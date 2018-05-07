@@ -31,7 +31,7 @@ export class StoreOwnerLoginComponent implements OnInit {
        console.log(this.user);
        this.userservice.setter(user);
        this.sstorage.store('storeowner',this.user);
-       this.router.navigate(['/storeOwnerHome']);
+       this.router.navigate(['/storeOwnerUser']);
      }
    },(error)=>{
      console.log(error);

@@ -13,11 +13,21 @@ public class NormalUser{
 	String name;
 	String password;
 	int userID;
+	boolean firstPurchase;
+	
 	public  NormalUser()
 		{
 			
 		}
 	
+	public boolean isFirstPurchase() {
+		return firstPurchase;
+	}
+
+	public void setFirstPurchase(boolean firstPurchase) {
+		this.firstPurchase = firstPurchase;
+	}
+
 	public int getId() {
 		return id;
 	}
