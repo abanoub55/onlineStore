@@ -65,6 +65,7 @@ public class NormalUserController {
 	{
 		return userrepo.save(user);
 	}
+	
 	@PutMapping("/nuser")
 	public NormalUser updateUser(@RequestBody NormalUser user)
 	{

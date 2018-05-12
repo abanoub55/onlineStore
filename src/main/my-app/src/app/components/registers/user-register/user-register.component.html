@@ -20,16 +20,8 @@
         <label for="password">User password</label>
         <input type="password" name='password' class='form-control' [(ngModel)]='user.password'>
         </div>
-        <!-- <div *ngIf="isAdmin">
-            Master Password Required
-           <input type="text" name='masterPassword' class='form-control' [(ngModel)]='user.masterPassword'>
-        </div>
-       
-        <div *ngIf="isStoreOwner">
-            Store ID
-           <input type="text" name='storeID' class='form-control' [(ngModel)]='user.storeID'>
-        </div>
-      <input type="submit" value="save" class="btn btn-success"> -->
+        
+      <input type="submit" value="save" class="btn btn-success"> 
     </form> 
     <button (click)="toggleAdmin()">to Resgister as an Admin</button> <br>
     <button (click)="toggleStoreOwner()">to Resgister as a StoreOwner</button> <br>

@@ -30,7 +30,11 @@ export class AdminRegisterComponent implements OnInit {
   }
   processForm()
   {
-    
+    if(this.user.userID==0 || this.user.name=='' || this.user.password=='' || this.user.email=='')
+    {
+      alert('please fill the information needed!');
+    }
+    else{
     if(this.user.userID==0)
     {
       this.userservice.createUser(this.user).subscribe((user)=>
@@ -54,7 +58,7 @@ export class AdminRegisterComponent implements OnInit {
     })
     }
   
-  
+  }
   }
 
 }

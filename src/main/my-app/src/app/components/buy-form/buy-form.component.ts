@@ -5,6 +5,8 @@ import {Router,Routes} from '@angular/router'
 import { NormalUser } from '../../NormalUser';
 import { StoreOwner } from '../../StoreOwner';
 import { SessionStorageService } from 'ngx-webstorage';
+import { NormaluserService } from '../../shared-services/user-services/normaluser.service';
+import { StoreownerService } from '../../shared-services/user-services/storeowner.service';
 
 @Component({
   selector: 'app-buy-form',
@@ -16,28 +18,59 @@ export class BuyFormComponent implements OnInit {
   user:NormalUser;
   user2:StoreOwner;
   amount:number;
-  constructor(private productservice:ProductService, private router:Router,private sstorage:SessionStorageService) { }
+  pay:number;
+  constructor(private productservice:ProductService, private router:Router,private sstorage:SessionStorageService,
+  private normUserS:NormaluserService,private storeownerS:StoreownerService) { }
 
   ngOnInit() {
     this.product=this.productservice.getter();
-    this.user=this.sstorage.retrieve('user');
+    this.user=this.sstorage.retrieve('normalUser');
     this.user2=this.sstorage.retrieve('storeowner');
+    this.pay=this.product.price;
+    console.log("this is the normal user"+this.user);
+    console.log(this.user);
+    console.log("this is the store owner"+this.user2);
   }
   processForm()
   {
-    console.log(this.amount);
-    console.log(this.product);
-    if(this.user2!=undefined)
+    if(this.amount ==0 || this.product.shippingAddress=='')
     {
-      this.product.price-=(0.15*this.product.price);
+      alert('please fill the information needed!');
     }
-    if(this.user2.firstPurchase==true || this.user.firstPurchase)
+    else{
+    if(this.user2!=null)
     {
-      this.product.price-=(0.05*this.product.price);
+      this.pay-=(0.15*this.pay);
+      if(this.user2.firstPurchase!=null && !this.user2.firstPurchase)
+      {
+      this.pay-=(0.05*this.pay);
+      this.user2.firstPurchase=true;
+      this.storeownerS.updateUser(this.user2).subscribe(user=>{
+        console.log(user);
+    },(error)=>{
+      console.log(error);
+    })
+      }
+
     }
-    if(this.amount>=2)
+    else if(this.user!=null)
     {
-      this.product.price-=(0.10*this.product.price);
+      if(this.user.firstPurchase!=null && !this.user.firstPurchase)
+    {
+      this.pay-=(0.05*this.pay);
+       console.log(this.user.firstPurchase);
+      this.user.firstPurchase=true;
+      this.normUserS.updateUser(this.user).subscribe(user=>{
+          console.log(user);
+      },(error)=>{
+        console.log(error);
+      })
+    }
+    }
+    
+    if(this.amount==2)
+    {
+      this.pay-=(0.10*this.pay);
     }
     this.product.amount=this.product.amount-this.amount;
     this.product.numOfBuyers=this.product.numOfBuyers+1;
@@ -48,9 +81,10 @@ export class BuyFormComponent implements OnInit {
       console.log(error);
     }
   );
-    alert("the total price is : "+this.product.price);
-    if(this.user!=undefined)this.router.navigate(['/userHome']);
+    alert("the total price is : "+this.pay);
+    if(this.user!=null)this.router.navigate(['/userHome']);
     else
-    this.router.navigate(['/storeonwer']);
+    this.router.navigate(['/storeOwnerUser']);
   }
+}
 }

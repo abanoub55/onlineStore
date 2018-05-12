@@ -6,8 +6,13 @@ export class StoreOwner {
     userID:number;
     password:string;
     firstPurchase:boolean;
-    StoreOwner()
+    constructor()
     {
-        
+        this.storeID=0;
+        this.name='';
+        this.email='';
+        this.userID=0;
+        this.password='';
+        this.firstPurchase=false;
     }
 };

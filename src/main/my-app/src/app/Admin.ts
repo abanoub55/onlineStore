@@ -1,12 +1,14 @@
 
 export class Admin {
-        masterPassword:string='9999';
-        name:string;
+    name:string;
     email:string;
     userID:number;
     password:string;
-    Admin()
+    constructor()
     {
-        
+        this.name='';
+        this.email='';
+        this.userID=0;
+        this.password='';
     }
 };

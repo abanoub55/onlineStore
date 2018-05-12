@@ -39,12 +39,16 @@ export class StoreOwnerHomeComponent implements OnInit {
   liststores:boolean=false;
   commands:Command[];
   availprods:Product[];
+  avgVal:number;
+  minVal:number;
+  maxVal:number;
   constructor(private storeservice:StoreService,private router:Router,
   private productservice:ProductService,private statservice:StatService
 ,private brandservice:BrandService,private commandservice:CommandService,
 private sstorage:SessionStorageService) { }
 
   ngOnInit() {
+    this.store=new Store();
     this.productservice.getavailproducts().subscribe((availproducts)=>{
         this.availprods=availproducts;
         console.log(this.availprods);
@@ -54,6 +58,7 @@ private sstorage:SessionStorageService) { }
     })
     this.storeservice.getstore(this.sstorage.retrieve('storeowner').storeID).subscribe((store)=>{
       this.store=store;
+      console.log("store set!!!"+this.store);
     },(error)=>{
       console.log(error);
     })
@@ -70,10 +75,6 @@ private sstorage:SessionStorageService) { }
     ,(error)=>{
       console.log(error);
     }) 
-    let store= new Store();
-    this.store=store;
-    let product= new Product();
-    this.product=product;
     this.statservice.getstats().subscribe(stats=>{
         this.stats=stats;
         console.log(this.stats);
@@ -90,6 +91,7 @@ private sstorage:SessionStorageService) { }
     },(error)=>{
       console.log(error);
     })
+
     this.showStats();
   }
   showStats()  {
@@ -106,13 +108,20 @@ private sstorage:SessionStorageService) { }
    },(error)=>{
      console.log(error);
    })
-
-   console.log(this.store.storeID);
    this.refreshDdata();
 }
 refreshDdata()
 {
    timer(60000).first().subscribe(() => this.showStats());
+}
+deleteCommand(command:Command)
+{
+  this.commands.splice(this.commands.indexOf(command),1);
+  this.commandservice.deleteCommand(command.id).subscribe((command)=>{
+
+  },(error)=>{
+    console.log(error);
+  })
 }
 
 addProduct()
@@ -131,7 +140,7 @@ add(product:Product)
     alert('added successfully to your store!');
     let cmd= new Command("add");
     //cmd.operationName="add";
-    cmd.name=product.name;
+    cmd.name=product.name;cmd.operationID=111;
     cmd.productID=product.productID;cmd.amount=product.amount;
     cmd.brandName=product.brandName;cmd.owningStore=product.owningStore;
     cmd.numOfBuyers=product.numOfBuyers;cmd.numOfVisits=product.numOfVisits;
@@ -178,7 +187,7 @@ delete(product:Product)
 
   alert('deleted successfully from your store!');
     let cmd= new Command("delete");
-    cmd.name=product.name;
+    cmd.name=product.name;cmd.operationID=222;
     cmd.productID=product.productID;cmd.amount=product.amount;
     cmd.brandName=product.brandName;cmd.owningStore=product.owningStore;
     cmd.numOfBuyers=product.numOfBuyers;cmd.numOfVisits=product.numOfVisits;
@@ -219,23 +228,33 @@ show(stat:Statistics)
 }
 undo(command:Command)
   {
-      if(command.name=='add')
+    let product = new Product;  
+    product.name=command.name;
+    product.productID=command.productID;product.amount=command.amount;
+    product.brandName=command.brandName;product.owningStore=command.owningStore;
+    product.numOfBuyers=command.numOfBuyers;product.numOfVisits=command.numOfVisits;
+    product.price=command.price;product.productsSold=command.productsSold;
+    product.shippingAddress=command.shippingAddress;product.category=command.category;
+    this.productservice.deleteProduct(product.productID).subscribe((product)=>{
+
+    },(error)=>{
+      console.log(error);
+    })
+    this.products.splice(this.products.indexOf(product),1);
+    if(command.operationID==111)
       {
-        //command.prod.owningStore=0;
+        product.owningStore=0;      
       }
-      else if(command.name=='delete')
+      else if(command.operationID==222)
       {
-      //  command.prod.owningStore=this.sstorage.retrieve('storeowner').storeID;
+         product.owningStore=this.sstorage.retrieve('storeowner').storeID;
         
       }
-      else if(command.name=='edit')
-      {
-
-      }
-      // this.productservice.updateProduct(command.prod).subscribe((product)=>{
-      // },(error)=>{
-      //   console.log(error);
-      // })
+     
+      this.productservice.updateProduct(product).subscribe((product)=>{
+      },(error)=>{
+        console.log(error);
+      })
       this.commandservice.deleteCommand(command.id).subscribe((command)=>{
 
       },(error)=>{
@@ -263,7 +282,47 @@ addCollab()
 
 avg(stat:Statistics)
 {
+      this.avgVal=0;
       if(stat.entityName=='product')
+      {
+          this.productservice.getstoreproducts(this.sstorage.retrieve('storeowner').storeID).subscribe((products)=>{
+              this.products=products;
+          },(error)=>{
+            console.log(error);
+          })
+          
+          for (let index = 0; index < this.products.length; index++) {
+             this.avgVal += this.products[index].numOfVisits;
+          }
+          this.avgVal/=(this.products.length);
+          alert("avgrage value of visits : "+this.avgVal);
+      }
+      else if(stat.entityName=='store')
+      {
+        this.storeservice.getastores().subscribe((stores)=>{
+          this.stores=stores;
+        },(error)=>{
+          console.log(error);
+        })
+        for (let index = 0; index < this.stores.length; index++) {
+          this.avgVal += this.stores[index].numOfVisits;
+       }
+      }
+      else if(stat.entityName=='brand')
+      {
+        this.brandservice.getbrands().subscribe(brands=>{
+          this.brands=brands;
+        },(error)=>{
+          console.log(error);
+        })
+        for (let index = 0; index < this.brands.length; index++) {
+          //this.avgVal += this.brands[index];
+       }
+      }
+}
+max(stat:Statistics)
+{
+  if(stat.entityName=='product')
       {
           
       }
@@ -271,13 +330,24 @@ avg(stat:Statistics)
       {
 
       }
+      else if(stat.entityName=='brand')
+      {
+        
+      }
 }
-max()
+min(stat:Statistics)
 {
+  if(stat.entityName=='product')
+      {
+          
+      }
+      else if(stat.entityName=='store')
+      {
 
-}
-min()
-{
-
+      }
+      else if(stat.entityName=='brand')
+      {
+        
+      }
 }
 }

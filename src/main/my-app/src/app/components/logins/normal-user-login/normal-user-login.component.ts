@@ -20,6 +20,18 @@ export class NormalUserLoginComponent implements OnInit {
 
     this.userservice.setter(this.user);
   }
+  adminlogin()
+  {
+    this.router.navigate(['/adminlogin']);
+  }
+  storeownerlogin()
+  {
+    this.router.navigate(['/sologin']);
+  }
+  collablogin()
+  {
+    this.router.navigate(['/collablogin']);
+  }
   processForm() 
   {
     

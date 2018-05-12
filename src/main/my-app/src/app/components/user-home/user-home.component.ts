@@ -37,7 +37,7 @@ export class UserHomeComponent implements OnInit {
       },(error)=>{
         console.log(error);
       })
-      alert("visited!");
+      //alert("visited!");
       this.buttonClicked=true;
       this.productservice.getstoreproducts(store.storeID).subscribe((products)=>{
         this.products=products;
@@ -45,6 +45,11 @@ export class UserHomeComponent implements OnInit {
       },(error)=>{
         console.log(error);
       })
+      var p:any;
+      for (p in this.products) {
+         store.productsSold+=p.productsSold;
+         store.numOfBuyers+=p.numOfBuyers;
+      }
       this.router.navigate(['/userHome']);
   }
   productVisit(product)

@@ -14,40 +14,53 @@ import { SessionStorageService } from 'ngx-webstorage';
 })
 export class ProductFormComponent implements OnInit {
   product:Product;
+  operation:boolean=false;
   constructor(private productservice:ProductService,private commandservice:CommandService,private router:Router,
   private sstorage:SessionStorageService) { }
 
   ngOnInit() {
-    this.product=this.productservice.getter();
+
+    if(this.sstorage.retrieve('editPressed')){
+      
+      let cmd= new Command("edit");
+      this.product=this.sstorage.retrieve('editPressed');
+    this.operation=true;
+    cmd.name=this.product.name;cmd.operationID=333;
+    cmd.productID=this.product.productID;cmd.amount=this.product.amount;
+    cmd.brandName=this.product.brandName;cmd.owningStore=this.product.owningStore;
+    cmd.numOfBuyers=this.product.numOfBuyers;cmd.numOfVisits=this.product.numOfVisits;
+    cmd.price=this.product.price;cmd.productsSold=this.product.productsSold;
+    cmd.shippingAddress=this.product.shippingAddress;cmd.category=this.product.category;
+    this.commandservice.createCommand(cmd).subscribe((command)=>{
+      console.log(command);
+    },(error)=>{
+      console.log(error);
+    })
+    }
+    else
+    {
+      this.product=new Product();
+    }
   }
   processForm()
   {
+    if(this.operation)
+    {
+      this.productservice.updateProduct(this.product).subscribe(product=>{
+        alert("updated!");
+      })
+    }
+    else{
     this.productservice.createProduct(this.product).subscribe((product)=>
     {
       console.log(product);
-      alert('saved successfully!');
+      alert('added successfully!');
     },(error)=>
   {
     console.log(error);
   })
-
-  if(this.sstorage.retrieve('editPressed')!=undefined){
-    let cmd= new Command("edit");
-
-    //cmd.operationName='edit';
-  
-  cmd.name=this.product.name;
-  cmd.productID=this.product.productID;cmd.amount=this.product.amount;
-  cmd.brandName=this.product.brandName;cmd.owningStore=this.product.owningStore;
-  cmd.numOfBuyers=this.product.numOfBuyers;cmd.numOfVisits=this.product.numOfVisits;
-  cmd.price=this.product.price;cmd.productsSold=this.product.productsSold;
-  cmd.shippingAddress=this.product.shippingAddress;cmd.category=this.product.category;
-  this.commandservice.createCommand(cmd).subscribe((command)=>{
-    console.log(command);
-  },(error)=>{
-    console.log(error);
-  })
-  }
+    }
+ 
 }
 
 }

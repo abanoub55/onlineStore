@@ -20,19 +20,20 @@ export class UserRegisterComponent implements OnInit {
   }
   toggleAdmin()
   {
-      // this.isAdmin=!this.isAdmin;
-      // if(this.isAdmin && this.isStoreOwner){this.toggleStoreOwner();}
+      
       this.router.navigate(['/adminform']);
   }
   toggleStoreOwner()
   {
-    // this.isStoreOwner=!this.isStoreOwner;
-    // if(this.isAdmin && this.isStoreOwner){this.toggleAdmin();}
+    
     this.router.navigate(['/soform']);
   }
   processForm()
   {
-    
+    if (this.user.userID == 0 || this.user.name == '' || this.user.password == '' || this.user.email == '') {
+      alert('please fill the information needed!');
+    }
+    else{
     if(this.user.userID==0)
     {
       this.userservice.createUser(this.user).subscribe((user)=>
@@ -56,6 +57,6 @@ export class UserRegisterComponent implements OnInit {
     })
     }
   
-  
+  }
   }
 }

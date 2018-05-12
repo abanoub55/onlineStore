@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {StoreService} from '../../shared-services/store.service';
 import {BrandService} from '../../shared-services/brand.service';
 import {Store} from '../../Store';
-import{User}  from '../../user';
 import {Brand} from '../../Brand';
 import {Router,Routes} from '@angular/router'
 import { ProductService } from '../../shared-services/product.service';

@@ -13,6 +13,7 @@ public  class Command {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	int id;
 	String oprationName;
+	int operationID;
 	int productID;
 	String name;
 	double price;
@@ -26,6 +27,12 @@ public  class Command {
 	String shippingAddress;
 	
 	
+	public int getOperationID() {
+		return operationID;
+	}
+	public void setOperationID(int operationID) {
+		this.operationID = operationID;
+	}
 	public int getId() {
 		return id;
 	}

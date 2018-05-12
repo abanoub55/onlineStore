@@ -22,6 +22,10 @@ export class CollabratorRegisterComponent implements OnInit {
  
   processForm()
   {
+    if (this.user.userID == 0 || this.user.name == '' || this.user.password == '' || this.user.email == '') {
+      alert('please fill the information needed!');
+    }
+    else{
     this.user.storeID=this.sstorage.retrieve('storeowner').storeID;
     if(this.user.userID==0)
     {
@@ -49,4 +53,5 @@ export class CollabratorRegisterComponent implements OnInit {
   
   this.router.navigate(['/storeOwnerHome']);
   }
+}
 }

@@ -12,7 +12,7 @@
     <th># of buyers</th>
   </thead>
   <tbody>
-    <tr>
+    <tr >
       <td> {{store.storeID}}</td>
       <td>{{store.name}}</td>
       <td>{{store.numOfVisits}} </td>
@@ -136,7 +136,7 @@
           <td>{{store.numOfBuyers}} </td>
           <td>{{store.numOfVisits}} </td>
           <td>{{store.productsSold}}</td>
-    
+          
         </tr>
       </tbody>
     
@@ -164,16 +164,18 @@
       <div> 
         <table class="table table-striped">
           <thead>
-              <th>operation</th> 
+              <th>operation ID</th> 
             <th>product name</th>
              <th>product ID </th>
           </thead>
           <tbody>
             <tr *ngFor="let command of commands">
-                <td>{{command.operationName}}</td>
+                <td>{{command.operationID}}</td>
               <td>{{command.name}}</td>
               <td>{{command.productID}}</td>
-              <button class="btn btn-danger" (click)="undo(command)">undo</button> 
+              <button class="a btn btn-warning" (click)="undo(command)">undo</button> 
+              <button class="a btn btn-danger" (click)="deleteCommand(command)">X</button> 
+
             </tr>
       </tbody>
       

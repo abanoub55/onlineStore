@@ -37,6 +37,8 @@ public class ProductController {
 		  
 		  return repo.findAll();
 	  }
+	  
+	  
 	  @GetMapping("/availproducts")
 	  public List<Product> getavailproducts()
 	  {

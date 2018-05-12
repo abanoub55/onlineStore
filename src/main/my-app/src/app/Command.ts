@@ -2,12 +2,13 @@ import { Product } from "./Product";
 import { Store } from "./Store";
 
 export class Command{
-	operationName: string;
+	
 	id:number;
-    //operationName:string;
     productID:number;
 	name:string;
 	price:number;
+	operationName:string;
+	operationID:number;
     category:string;
 	brandName:string;
 	numOfVisits:number;

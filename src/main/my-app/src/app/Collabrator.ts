@@ -5,8 +5,13 @@ export class Collabrator {
     email:string;
     userID:number;
     password:string;
-    Collabrator()
+   
+        constructor()
     {
-        
+        this.name='';
+        this.email='';
+        this.userID=0;
+        this.password='';
     }
+    
 };

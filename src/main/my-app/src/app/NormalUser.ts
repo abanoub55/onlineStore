@@ -5,8 +5,12 @@ export class NormalUser{
     userID:number;
     password:string;
     firstPurchase:boolean;
-    NormalUser()
+    constructor()
     {
-       
+        this.name='';
+        this.email='';
+        this.userID=0;
+        this.password='';
+        this.firstPurchase=false;
     }
 };

@@ -111,29 +111,34 @@ add(product:Product)
   this.productservice.updateProduct(product).subscribe((productt)=>{
     console.log(productt);
   },(error)=>{
-    console.log(error);
+    console.log(error);})
+
     alert('added successfully to your store!');
     let cmd= new Command("add");
-    //cmd.name='add';
-   // cmd.prod=product;
-    //cmd.store.storeID=this.sstorage.retrieve('collabrator').storeID;
+    //cmd.operationName="add";
+    cmd.name=product.name;cmd.operationID=111;
+    cmd.productID=product.productID;cmd.amount=product.amount;
+    cmd.brandName=product.brandName;cmd.owningStore=product.owningStore;
+    cmd.numOfBuyers=product.numOfBuyers;cmd.numOfVisits=product.numOfVisits;
+    cmd.price=product.price;cmd.productsSold=product.productsSold;
+    cmd.shippingAddress=product.shippingAddress;cmd.category=product.category;
     this.commandservice.createCommand(cmd).subscribe((command)=>{
       console.log(command);
     },(error)=>{
       console.log(error);
     })
-  })
- 
-  this.productservice.getstoreproducts(this.sstorage.retrieve('storeowner').storeID).subscribe((products)=>{
-    this.products=products;
-    console.log(products);
-  },(error)=>{
-    console.log(error);
-  })
+  
+    this.productservice.getstoreproducts(this.sstorage.retrieve('collabrator').storeID).subscribe((products)=>{
+      this.products=products;
+      console.log(products);
+    },(error)=>{
+      console.log(error);
+    })
 }
 edit(product:Product)
 {
   this.productservice.setter(product);
+  this.sstorage.store('editPressed',product);
   this.router.navigate(['addProduct']);
 }
 delete(product:Product)
@@ -149,15 +154,18 @@ delete(product:Product)
 
   alert('deleted successfully from your store!');
     let cmd= new Command("delete");
-   // cmd.name='delete';
-    //cmd.prod=product;
-    //cmd.store=this.store;
+    cmd.name=product.name;cmd.operationID=222;
+    cmd.productID=product.productID;cmd.amount=product.amount;
+    cmd.brandName=product.brandName;cmd.owningStore=product.owningStore;
+    cmd.numOfBuyers=product.numOfBuyers;cmd.numOfVisits=product.numOfVisits;
+    cmd.price=product.price;cmd.productsSold=product.productsSold;
+    cmd.shippingAddress=product.shippingAddress;cmd.category=product.category;
     this.commandservice.createCommand(cmd).subscribe((command)=>{
       console.log(command);
     },(error)=>{
       console.log(error);
     })
- 
+   
     this.productservice.getstoreproducts(this.sstorage.retrieve('collabrator').storeID).subscribe((products)=>{
       this.products=products;
       console.log(products);

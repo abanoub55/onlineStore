@@ -14,12 +14,12 @@ export class BrandService {
   {
     return this.http.get(this.baseUrl+"/brands",this.options).map((response:Response)=>response.json());
   }
-  getstore(name:string)
+  getbrand(name:string)
   {
    return this.http.get(this.baseUrl+"/brand/"+name,this.options).map((response:Response)=>response.json());
   }
  
-  createStore(brand:Brand)
+  createBrand(brand:Brand)
   {
    return this.http.post(this.baseUrl+"/brand",JSON.stringify(brand),this.options).map((response:Response)=>response.json());
 

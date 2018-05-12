@@ -28,6 +28,10 @@ export class ProductService {
     return this.http.get(this.baseUrl+"/products/"+id,this.options).map((response:Response)=>response.json());
 
    }
+   getNewProduct()
+   {
+      return this.http.get(this.baseUrl+"/newproduct/",this.options).map((response:Response)=>response.json());
+   }
    createProduct(product:Product)
    {
     return this.http.post(this.baseUrl+"/product",JSON.stringify(product),this.options).map((response:Response)=>response.json());
